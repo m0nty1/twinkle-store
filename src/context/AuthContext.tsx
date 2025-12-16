@@ -1,9 +1,9 @@
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { 
   onAuthStateChanged, 
   signInWithEmailAndPassword, 
   signOut, 
-  type User // Hena el taslee7 (added 'type')
+  type User 
 } from "firebase/auth";
 import { auth } from "../firebase";
 
@@ -17,11 +17,9 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-// Whitelist emails allowed to edit
 const ADMIN_EMAILS = [
   "admin@twinkle.com", 
   "owner@twinkle.com"
-  // Add your email here
 ];
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {

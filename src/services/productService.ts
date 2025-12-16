@@ -4,13 +4,12 @@ import {
   addDoc, 
   deleteDoc, 
   doc, 
-  updateDoc, 
   query, 
   where 
 } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { db, storage } from "../firebase"; // Hena e7na bn-import el db sa7
-import { Product } from "../types";
+import { db, storage } from "../firebase";
+import type { Product } from "../types";
 
 const COLLECTION_NAME = "products";
 
@@ -18,7 +17,6 @@ export const getProducts = async (category?: string): Promise<Product[]> => {
   try {
     let q = collection(db, COLLECTION_NAME);
     
-    // Low fi category, n3mel filter
     if (category) {
       // @ts-ignore
       q = query(q, where("category", "==", category));
@@ -47,4 +45,4 @@ export const uploadImage = async (file: File): Promise<string> => {
   const storageRef = ref(storage, `products/${Date.now()}_${file.name}`);
   const snapshot = await uploadBytes(storageRef, file);
   return await getDownloadURL(snapshot.ref);
-};  
+};
